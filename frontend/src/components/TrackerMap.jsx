@@ -5,7 +5,7 @@ import L from "leaflet";
 import { useAuth } from "../context/AuthContext";
 import { getUserColor, calculateDistanceMeters } from "../utils/geo";
 
-const SOCKET_SERVER_URL = "http://localhost:3000";
+const SOCKET_SERVER_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 /**
  * Component: TrackerMap
