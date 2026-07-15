@@ -91,13 +91,3 @@ npm run dev
 Open `http://localhost:5173` in your browser.
 
 ---
-
-## 📃 Resume Highlights (Interviews Portfolio)
-
-You can list this project on your resume as follows:
-
-* **Designed and developed a decoupled real-time tracking application** using React, Express, Socket.io rooms isolation, and PostgreSQL.
-* **Implemented database spatial indexing (GiST)** and built-in migrations using PostGIS to store coordinates natively inside geographic point formats (`GEOMETRY(Point, 4326)`).
-* **Secured server REST API endpoints and Socket.io handshakes** using JSON Web Token (JWT) verification middlewares and Bcrypt password hashing.
-* **Integrated official Google OAuth2 One-Tap Sign-In**, verifying client tokens via backend `google-auth-library` signatures.
-* **Optimized telemetry network payload and device battery drain** by implementing client-side location throttling (using Haversine calculations to enforce 5-meter displacement and 3-second limits).
