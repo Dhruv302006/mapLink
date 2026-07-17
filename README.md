@@ -72,12 +72,19 @@ REDIS_URL="redis://localhost:6379"
 
 ## 🐳 Docker Deployment (Recommended)
 
-You can run the entire multi-container stack (Frontend, Backend, PostgreSQL + PostGIS, Redis) locally with a single command. Docker Compose will automatically configure the networks, volumes, and inject the environment variables.
+You can run the entire multi-container stack (Frontend, Backend, PostgreSQL + PostGIS, Redis) locally. Docker Compose will automatically configure the networks, volumes, and inject the environment variables.
 
-### Start the Stack:
-```bash
-docker compose up --build
-```
+### Quick Start Instructions:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Dhruv302006/mapLink.git
+   cd mapLink
+   ```
+
+2. **Start the containers:**
+   ```bash
+   docker compose up --build
+   ```
 
 * The React Frontend (served via Nginx) will listen on **`http://localhost:80`**
 * The Express REST API & Websockets will run on **`http://localhost:3000`**
