@@ -124,13 +124,3 @@ npm run dev
 Open `http://localhost:5173` in your browser.
 
 ---
-
-## 📃 Resume Highlights (Interviews Portfolio)
-
-You can list this project on your resume as follows:
-
-* **Engineered a decoupled, containerized real-time tracking application** using React, Express, Socket.io, PostgreSQL, and Redis.
-* **Designed a Write-Behind Cache pattern using Redis List queues** to batch telemetry data, executing single-transaction database bulk inserts every 15 seconds to **reduce primary PostgreSQL transaction loads by over 80%**.
-* **Implemented database spatial indexing (GiST)** and built-in migrations using PostGIS to store coordinates natively inside geographic point formats (`GEOMETRY(Point, 4326)`).
-* **Containerized services using Docker Compose** to orchestrate independent containers for the database (PostGIS), memory cache (Redis), Node.js server, and React client (served via Nginx).
-* **Architected a Continuous Integration (CI) pipeline** using GitHub Actions to run linters, verify React production compilations, and validate Docker builds on every push.
