@@ -1,6 +1,6 @@
 # MapLink - Real-Time Geospatial Tracking Platform
 
-MapLink is a production-grade, decoupled real-time tracking application. It allows users to create private room sessions, invite friends via sharing links, and track each other's live movements on a dark-themed Leaflet map. 
+MapLink is a decoupled real-time tracking application. It allows users to create private room sessions, invite friends via sharing links, and track each other's live movements on a dark-themed Leaflet map. 
 
 The application is built using a **decoupled, containerized architecture**: a React Single Page Application (Vite) served via Nginx on the frontend, and an Express REST API & Socket.io server mapped to a PostgreSQL spatial database (with PostGIS extension) and a Redis write-behind cache on the backend.
 
