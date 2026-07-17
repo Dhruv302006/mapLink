@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database with PostGIS enabled
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: maplink-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dhruvthakur123
+      POSTGRES_DB: Trackerdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Redis Cache for write-behind geospatial telemetry caching
+  redis:
+    image: redis:7-alpine
+    container_name: maplink-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # 3. Node.js Express & Socket.io Backend API
+  backend:
+    build: ./backend
+    container_name: maplink-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      # Connects to PostgreSQL container over internal docker bridge network on host name 'db'
+      DATABASE_URL: postgresql://postgres:dhruvthakur123@db:5432/Trackerdb
+      # Connects to Redis container over internal bridge network on host name 'redis'
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: geospatial_tracker_jwt_secret_token_placeholder_key_55a298
+      GOOGLE_CLIENT_ID: 205337054231-2c7o6m7nooknr5jveifhmd8jlq75ma8d.apps.googleusercontent.com
+
+  # 4. React SPA Frontend served via Nginx
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Injects the backend URL into the Vite build variables.
+        # Since the browser runs client-side, it requests the backend on localhost:3000.
+        - VITE_API_BASE_URL=http://localhost:3000
+    container_name: maplink-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:

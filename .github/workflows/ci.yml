@@ -1,0 +1,46 @@
+name: MapLink Continuous Integration (CI)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-validate:
+    name: Build, Lint, and Docker Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository source code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js runtime environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      # 3. Install Monorepo Dependencies
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm run install-all
+
+      # 4. Run Frontend Linters (using oxlint)
+      - name: Run Linter (Oxlint)
+        run: npm run lint --prefix frontend
+
+      # 5. Compile React Frontend Assets
+      - name: Test Frontend Production Compilation
+        run: npm run build --prefix frontend
+
+      # 6. Verify Backend Docker Build Integrity
+      - name: Verify Backend Docker Build
+        run: docker build -t maplink-backend:test ./backend
+
+      # 7. Verify Frontend Nginx Docker Build Integrity
+      - name: Verify Frontend Docker Build
+        run: docker build --build-arg VITE_API_BASE_URL=http://localhost:3000 -t maplink-frontend:test ./frontend
